@@ -702,6 +702,7 @@ prepare_host()
 		"https://dl.armbian.com/_toolchains/gcc-linaro-7.4.1-2019.02-x86_64_arm-eabi.tar.xz"
 		"https://dl.armbian.com/_toolchains/gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabi.tar.xz"
 		"https://dl.armbian.com/_toolchains/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz"
+		"https://releases.linaro.org/components/toolchain/binaries/latest-4/arm-eabi/gcc-linaro-4.9.4-2017.01-x86_64_arm-eabi.tar.xz"
 		)
 
 	for toolchain in ${toolchains[@]}; do
