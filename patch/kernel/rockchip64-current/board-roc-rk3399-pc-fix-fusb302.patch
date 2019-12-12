@@ -1,0 +1,69 @@
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-roc-pc.dts b/arch/arm64/boot/dts/rockchip/rk3399-roc-pc.dts
+index 6a685dc9c..a3ef07034 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-roc-pc.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-roc-pc.dts
+@@ -5,6 +5,7 @@
+ 
+ /dts-v1/;
+ #include <dt-bindings/pwm/pwm.h>
++#include <dt-bindings/usb/pd.h>
+ #include "rk3399.dtsi"
+ #include "rk3399-opp.dtsi"
+@@ -106,7 +106,6 @@
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&vcc5v0_host_en &hub_rst>;
+ 		regulator-name = "vcc5v0_host";
+-		regulator-always-on;
+ 		vin-supply = <&vcc_sys>;
+ 	};
+ 
+@@ -124,7 +123,6 @@
+ 	vcc_sys: vcc-sys {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vcc_sys";
+-		regulator-always-on;
+ 		regulator-boot-on;
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+@@ -163,8 +161,6 @@
+ 		gpio = <&gpio1 RK_PC1 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&vcc3v3_pcie_en>;
+-		regulator-always-on;
+-		regulator-boot-on;
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		vin-supply = <&vcc12v_sys>;
+@@ -339,7 +335,6 @@
+ 
+ 			vcc_sdio: LDO_REG4 {
+ 				regulator-name = "vcc_sdio";
+-				regulator-always-on;
+ 				regulator-boot-on;
+ 				regulator-min-microvolt = <1800000>;
+ 				regulator-max-microvolt = <3000000>;
+@@ -492,11 +487,23 @@
+ 		compatible = "fcs,fusb302";
+ 		reg = <0x22>;
+ 		interrupt-parent = <&gpio1>;
+-		interrupts = <2 IRQ_TYPE_LEVEL_LOW>;
++		interrupts = <RK_PA2 IRQ_TYPE_LEVEL_LOW>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&fusb0_int>;
+ 		vbus-supply = <&vcc_vbus_typec0>;
+ 		status = "okay";
++
++		usb_con: connector {
++			compatible = "usb-c-connector";
++			label = "USB-C-0";
++			power-role = "dual";
++			try-power-role = "sink";
++			source-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)>;
++			sink-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM)
++				     PDO_VAR(5000, 15000, 3000)
++				     PDO_PPS_APDO(5000, 15000, 3000)>;
++			op-sink-microwatt = <45000000>;
++		};
+ 	};
+ };
+ 
