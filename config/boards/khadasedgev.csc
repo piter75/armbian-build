@@ -1,0 +1,8 @@
+# RK3399 hexa core 2-4GB RAM SoC GBE eMMC USB3 USB-C WiFi/BT
+BOARD_NAME="Khadas Edge-V"
+BOARDFAMILY="rk3399"
+BOOTCONFIG="khadas-edge-v-rk3399_defconfig"
+MODULES=""
+MODULES_NEXT=""
+KERNEL_TARGET="current,dev"
+FULL_DESKTOP="yes"
