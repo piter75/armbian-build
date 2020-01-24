@@ -1,0 +1,21 @@
+diff --git a/include/configs/rockchip-common.h b/include/configs/rockchip-common.h
+index 68e1105a..d7abe399 100644
+--- a/include/configs/rockchip-common.h
++++ b/include/configs/rockchip-common.h
+@@ -38,8 +38,15 @@
+ 	#define BOOT_TARGET_DHCP(func)
+ #endif
+ 
++#if (CONFIG_IS_ENABLED(CMD_NVME) && CONFIG_IS_ENABLED(CMD_PCI))
++ 	#define BOOT_TARGET_NVME(func) func(NVME, nvme, 0)
++#else
++ 	#define BOOT_TARGET_NVME(func)
++#endif
++
+ #define BOOT_TARGET_DEVICES(func) \
+ 	BOOT_TARGET_MMC(func) \
++	BOOT_TARGET_NVME(func) \
+ 	BOOT_TARGET_USB(func) \
+ 	BOOT_TARGET_PXE(func) \
+ 	BOOT_TARGET_DHCP(func)
+
