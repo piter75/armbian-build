@@ -15,7 +15,7 @@ new file mode 100644
 index 000000000..94817fb4f
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-common.dtsi
-@@ -0,0 +1,608 @@
+@@ -0,0 +1,624 @@
 +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2018 FriendlyElec Computer Tech. Co., Ltd.
@@ -54,6 +54,8 @@ index 000000000..94817fb4f
 +		machine = "NANOPI-R2";
 +		hwrev = <255>;
 +		model = "NanoPi R2 Series";
++		nvmem-cells = <&efuse_id>, <&efuse_cpu_version>;
++		nvmem-cell-names = "id", "cpu-version";
 +	};
 +
 +	leds: gpio-leds {
@@ -265,19 +267,33 @@ index 000000000..94817fb4f
 +	assigned-clocks = <&cru SCLK_MAC2IO>, <&cru SCLK_MAC2IO_EXT>;
 +	assigned-clock-parents = <&gmac_clkin>, <&gmac_clkin>;
 +	clock_in_out = "input";
-+	phy-supply = <&vcc_phy>;
-+	phy-mode = "rgmii";
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&rgmiim1_pins>;
-+	snps,aal;
-+	snps,reset-gpio = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
++	phy-handle = <&rtl8211e>;
++	phy-mode = "rgmii";
++	phy-supply = <&vcc_phy>;
 +	snps,reset-active-low;
-+	snps,reset-delays-us = <0 10000 50000>;
++	snps,reset-delays-us = <0 10000 30000>;
++	snps,reset-gpio = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
++	snps,aal;
 +	snps,rxpbl = <0x4>;
 +	snps,txpbl = <0x4>;
 +	tx_delay = <0x24>;
 +	rx_delay = <0x18>;
 +	status = "okay";
++
++	mdio {
++		compatible = "snps,dwmac-mdio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		rtl8211e: phy@0 {
++			reg = <0>;
++			reset-assert-us = <10000>;
++			reset-deassert-us = <30000>;
++			/* reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>; */
++		};
++	};
 +};
 +
 +&i2c1 {
@@ -629,23 +645,11 @@ new file mode 100644
 index 000000000..94d7201c3
 --- /dev/null
 +++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev00.dts
-@@ -0,0 +1,128 @@
+@@ -0,0 +1,116 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
 +/*
 + * Copyright (c) 2019 FriendlyElec Computer Tech. Co., Ltd.
 + * (http://www.friendlyarm.com)
-+ *
-+ * This program is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU General Public License
-+ * as published by the Free Software Foundation; either version 2
-+ * of the License, or (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU General Public License
-+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 + */
 +
 +/dts-v1/;
