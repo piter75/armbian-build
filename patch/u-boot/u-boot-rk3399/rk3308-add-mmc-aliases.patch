@@ -1,0 +1,31 @@
+From a7eb9ae349a3b7d0c44c2afa073e5df14d2a18f6 Mon Sep 17 00:00:00 2001
+From: Kever Yang <kever.yang@rock-chips.com>
+Date: Wed, 8 Jan 2020 17:38:48 +0800
+Subject: [PATCH] rockchip: rk3308: add alias for emmc/sdmmc
+
+Add alias for mmc/sdmmc so that we can have a fix mmc number for emmc.
+
+Signed-off-by: Kever Yang <kever.yang@rock-chips.com>
+Reviewed-by: Jagan Teki <jagan@amarulasolutions.com>
+---
+ arch/arm/dts/rk3308-u-boot.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm/dts/rk3308-u-boot.dtsi b/arch/arm/dts/rk3308-u-boot.dtsi
+index f5a595337e5..4bfad31fbab 100644
+--- a/arch/arm/dts/rk3308-u-boot.dtsi
++++ b/arch/arm/dts/rk3308-u-boot.dtsi
+@@ -3,6 +3,13 @@
+  *(C) Copyright 2019 Rockchip Electronics Co., Ltd
+  */
+ 
++/ {
++	aliases {
++		mmc0 = &emmc;
++		mmc1 = &sdmmc;
++	};
++};
++
+ &cru {
+ 	u-boot,dm-pre-reloc;
+ };
