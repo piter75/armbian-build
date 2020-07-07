@@ -86,9 +86,9 @@ prepare_boot_configuration()
 		UBOOT_TARGET_MAP="BL31=bl31.bin idbloader.img u-boot.itb;;idbloader.img u-boot.itb"
 		ATFSOURCE='https://github.com/ARM-software/arm-trusted-firmware'
 		ATFDIR='arm-trusted-firmware'
-		ATFBRANCH='tag:v2.2'
+		ATFBRANCH='tag:v2.3'
 		ATF_USE_GCC='> 6.3'
-		ATF_TARGET_MAP='M0_CROSS_COMPILE=arm-linux-gnueabi- PLAT=rk3399 bl31;;build/rk3399/release/bl31/bl31.elf:bl31.bin'
+		ATF_TARGET_MAP="M0_CROSS_COMPILE=arm-linux-gnueabi- PLAT=${BOOT_SOC} bl31;;build/${BOOT_SOC}/release/bl31/bl31.elf:bl31.bin"
 		ATF_TOOLCHAIN2="arm-linux-gnueabi-:> 5.0"
 
 	elif [[ $BOOT_USE_TPL_SPL_BLOB == yes ]]; then
@@ -230,7 +230,7 @@ atf_custom_postprocess()
 	# remove bl31.bin which can be 4+GiB in size and thus may fill the tmpfs mount
 	rm -f build/rk322xh/debug/bl31.bin
 	# ATF
-	trust_merger trust.ini
+	# trust_merger trust.ini
 
 }
 
