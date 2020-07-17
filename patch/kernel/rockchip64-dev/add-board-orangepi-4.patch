@@ -175,8 +175,8 @@ index 000000000..1e1747ceb
 +		compatible = "pwm-regulator";
 +		pwms = <&pwm2 0 25000 1>;
 +		regulator-name = "vdd_log";
-+		regulator-min-microvolt = <800000>;
-+		regulator-max-microvolt = <1400000>;
++		regulator-min-microvolt = <920000>;
++		regulator-max-microvolt = <1350000>;
 +		regulator-always-on;
 +		regulator-boot-on;
 +		vin-supply = <&vcc3v3_sys>;

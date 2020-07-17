@@ -15,7 +15,7 @@ new file mode 100644
 index 00000000..5bd86966
 --- /dev/null
 +++ b/arch/arm/dts/rk3399-orangepi-4-u-boot.dtsi
-@@ -0,0 +1,13 @@
+@@ -0,0 +1,17 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Copyright (C) 2019 Jagan Teki <jagan@amarulasolutions.com>
@@ -29,12 +29,16 @@ index 00000000..5bd86966
 +		u-boot,spl-boot-order = "same-as-spl", &sdhci, &sdmmc;
 +	};
 +};
++
++&vdd_log {
++	regulator-init-microvolt = <950000>;
++};
 diff --git a/arch/arm/dts/rk3399-orangepi-4.dts b/arch/arm/dts/rk3399-orangepi-4.dts
 new file mode 100644
 index 0000000..4c50b3d
 --- /dev/null
 +++ b/arch/arm/dts/rk3399-orangepi-4.dts
-@@ -0,0 +1,206 @@
+@@ -0,0 +1,217 @@
 +/*
 + * (C) Copyright 2016 Rockchip Electronics Co., Ltd
 + *
@@ -106,6 +110,17 @@ index 0000000..4c50b3d
 +		compatible = "regulator-fixed";
 +		regulator-name = "vcc5v0_typec1";
 +		gpio = <&gpio1 4 GPIO_ACTIVE_HIGH>;
++	};
++
++	vdd_log: vdd-log {
++		compatible = "pwm-regulator";
++		pwms = <&pwm2 0 25000 1>;
++		regulator-name = "vdd_log";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <920000>;
++		regulator-max-microvolt = <1350000>;
++		vin-supply = <&vccsys>;
 +	};
 +
 +	clkin_gmac: external-gmac-clock {
