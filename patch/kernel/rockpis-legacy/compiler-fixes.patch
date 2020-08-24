@@ -33,3 +33,27 @@ index adf05079..82d77dda 100644
  export KBUILD_AFLAGS_MODULE KBUILD_CFLAGS_MODULE KBUILD_LDFLAGS_MODULE
  export KBUILD_AFLAGS_KERNEL KBUILD_CFLAGS_KERNEL
  export KBUILD_ARFLAGS
+diff --git a/Makefile b/Makefile
+index 97f95255e..f704ebe41 100644
+--- a/Makefile
++++ b/Makefile
+@@ -407,11 +407,19 @@ CHECK		= sparse
+ 
+ # Use the wrapper for the compiler. This wrapper scans for new
+ # warnings and causes the build to stop upon encountering them.
++ifeq ("$(origin GCC_WRAPPER)", "command line")
++  KGCC_WRAPPER = $(GCC_WRAPPER)
++endif
++ifndef KGCC_WRAPPER
++  KGCC_WRAPPER = 0
++endif
++ifeq ($(KGCC_WRAPPER),1)
+ ifeq ($(CC),$(CROSS_COMPILE)gcc)
+ ifneq ($(wildcard $(srctree)/scripts/gcc-wrapper.py),)
+ CC		= $(srctree)/scripts/gcc-wrapper.py $(CROSS_COMPILE)gcc
+ endif
+ endif
++endif
+ 
+ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
+ 		  -Wbitwise -Wno-return-void -Wno-unknown-attribute $(CF)
