@@ -1,16 +1,5 @@
 diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
 index 918777cfb..637bea038 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -126,7 +126,7 @@ core-$(CONFIG_EFI_STUB) += $(objtree)/drivers/firmware/efi/libstub/lib.a
- 
- # Default target when executing plain make
- boot		:= arch/arm64/boot
--KBUILD_IMAGE	:= $(boot)/Image.gz
-+KBUILD_IMAGE	:= $(boot)/Image
- KBUILD_DTBS	:= dtbs
- 
- all:	Image.gz $(KBUILD_DTBS)
 @@ -144,6 +144,12 @@ zinstall install:
  %.dtb: scripts
  	$(Q)$(MAKE) $(build)=$(boot)/dts $(boot)/dts/$@
