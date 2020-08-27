@@ -33,7 +33,7 @@ compilation_prepare()
 	fi
 
 	if [[ "${version}" == "4.19."* ]] && [[ "$LINUXFAMILY" == sunxi* || "$LINUXFAMILY" == meson64 || \
-	"$LINUXFAMILY" == mvebu64 || "$LINUXFAMILY" == mt7623 || "$LINUXFAMILY" == mvebu ]]; then
+	"$LINUXFAMILY" == mvebu64 || "$LINUXFAMILY" == mt7623 || "$LINUXFAMILY" == mvebu || "$LINUXFAMILY" == rockpis ]]; then
 		display_alert "Adjustin" "packaging" "info"
 		cd "${SRC}/cache/sources/${LINUXSOURCEDIR}" || exit
 		process_patch_file "${SRC}/patch/misc/general-packaging-4.19.y.patch" "applying"
