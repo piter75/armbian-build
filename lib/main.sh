@@ -99,6 +99,11 @@ else
 
 fi
 
+if [[ $USE_DISTCC == yes ]]; then
+	#CCACHE=distcc
+	export CCACHE_PREFIX=distcc
+fi
+
 if [[ -n $REPOSITORY_UPDATE ]]; then
 
         # select stable/beta configuration
@@ -363,6 +368,11 @@ else
 	CTHREADS="-j1"
 
 fi
+
+if [[ $USE_DISTCC == yes ]]; then
+	CTHREADS="-j$(distcc -j)"
+fi
+
 
 if [[ $BETA == yes ]]; then
 	IMAGE_TYPE=nightly
